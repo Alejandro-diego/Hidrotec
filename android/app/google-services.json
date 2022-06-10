@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "338880342895",
+    "firebase_url": "https://hidrotec-bae15-default-rtdb.firebaseio.com",
+    "project_id": "hidrotec-bae15",
+    "storage_bucket": "hidrotec-bae15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:338880342895:android:266601da320c294d9bd69a",
+        "android_client_info": {
+          "package_name": "com.hidrotec"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "338880342895-17ugtj8v64f2j6e63pnssv8vgbpattnh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hidrotec",
+            "certificate_hash": "c5cb3992dfe4ab4ec16ae3c6e54713b6509aa55a"
+          }
+        },
+        {
+          "client_id": "338880342895-ea9agse82303es3pnf26j6aud8tb0dis.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdPGP8Fy0uQqM9MGPKkC0pIxad0Lre9OY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "338880342895-ea9agse82303es3pnf26j6aud8tb0dis.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
