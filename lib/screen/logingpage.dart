@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:hidrotec/authbloc/authbloc.dart';
-import 'package:hidrotec/screen/home.dart';
-import 'package:hidrotec/screen/logo.dart';
+import 'package:hidrotec/widget/logo.dart';
 import 'package:provider/provider.dart';
 import 'package:restart_app/restart_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:brasil_fields/brasil_fields.dart';
 
 import '../models/providerrtdb.dart';
+import 'home/home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -73,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                LogoHidrotec(
+                LogoHidrotec1(
                   fontSize1: 35,
                   fontSize2: 12,
                 ),

@@ -5,8 +5,11 @@ import 'package:provider/provider.dart';
 
 import '../models/providerrtdb.dart';
 
+// ignore: must_be_immutable
 class PickColor extends StatefulWidget {
-  const PickColor({Key? key}) : super(key: key);
+   PickColor({Key? key, required this.height, required this.widht}) : super(key: key);
+  double widht;
+  double height;
 
   @override
   State<PickColor> createState() => _PickColorState();
@@ -26,8 +29,9 @@ class _PickColorState extends State<PickColor> {
   Widget build(BuildContext context) {
     final dispositivo = Provider.of<ProviderRTDB>(context);
     return Container(
-      width: 210,
-      height: 210,
+      padding: const EdgeInsets.all(5),
+      width: widget.widht,
+      
       decoration: BoxDecoration(
         color: Colors.indigo.withOpacity(0.7),
         borderRadius: BorderRadius.circular(8),
@@ -38,7 +42,6 @@ class _PickColorState extends State<PickColor> {
           children: [
             const Text('Led Control'),
             CircleColorPicker(
-              
               controller: _controller,
               onChanged: (color) {
                 setState(() {
@@ -54,7 +57,7 @@ class _PickColorState extends State<PickColor> {
                   });
                 });
               },
-              size: const Size(190, 190),
+              size:  Size(widget.height -25,widget.height -30),
               textStyle: const TextStyle(fontSize: 0.0),
               strokeWidth: 2,
               thumbSize: 20,

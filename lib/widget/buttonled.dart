@@ -20,8 +20,7 @@ class _LedButtonState extends State<LedButton> {
 
     return Consumer<ProviderRTDB>(builder: (context, model, child) {
       if (model.datosProvider != null) {
-        return Container(
-          margin: const EdgeInsets.all(5),
+        return Container(         
           decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.circular(8),

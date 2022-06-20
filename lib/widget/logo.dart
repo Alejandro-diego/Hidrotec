@@ -3,8 +3,8 @@ import 'package:outlined_text/outlined_text.dart';
 
 
 // ignore: must_be_immutable
-class LogoHidrotec extends StatelessWidget {
-  LogoHidrotec({Key? key, required this.fontSize1, required this.fontSize2})
+class LogoHidrotec1 extends StatelessWidget {
+  LogoHidrotec1({Key? key, required this.fontSize1, required this.fontSize2})
       : super(key: key);
 
   late double fontSize1;

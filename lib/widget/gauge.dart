@@ -14,12 +14,25 @@ class Gauge extends StatefulWidget {
 class _GaugeState extends State<Gauge> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<ProviderRTDB>(builder: (context, model, child) {
-      if (model.datosProvider != null) {
-        return SfRadialGauge(
-            title: const GaugeTitle(text: 'Control Temperatura',textStyle: TextStyle(fontSize: 10)),
-            axes: <RadialAxis>[
-              RadialAxis(
+    return Consumer<ProviderRTDB>(
+      builder: (context, model, child) {
+        if (model.datosProvider != null) {
+          return Container(
+            // margin: const EdgeInsets.only(top: 2, left: 8),
+            decoration: BoxDecoration(
+              color: Colors.indigo.withOpacity(0.7),
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.black),
+            ),
+            height: 190.0,
+            width: 200.0,
+            child: SfRadialGauge(
+              title: const GaugeTitle(
+                text: 'Control Temperatura',
+                textStyle: TextStyle(fontSize: 10),
+              ),
+              axes: <RadialAxis>[
+                RadialAxis(
                   minimum: 0,
                   maximum: 60,
                   ranges: <GaugeRange>[
@@ -45,7 +58,6 @@ class _GaugeState extends State<Gauge> {
                       color: Colors.redAccent,
                       width: 4,
                     ),
-
                     MarkerPointer(
                       markerOffset: -11,
                       color: Colors.orangeAccent,
@@ -54,14 +66,14 @@ class _GaugeState extends State<Gauge> {
                       enableDragging: true,
                       value: model.datosProvider!.tempSetting.toDouble(),
                     ),
-                   
                   ],
                   annotations: <GaugeAnnotation>[
                     GaugeAnnotation(
                         widget: Row(
                           children: <Widget>[
                             Text(
-                              (model.datosProvider!.temp /100).toString() + "º",
+                              (model.datosProvider!.temp / 100).toString() +
+                                  "º",
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
@@ -71,13 +83,17 @@ class _GaugeState extends State<Gauge> {
                         ),
                         angle: 1,
                         positionFactor: .95)
-                  ])
-            ]);
-      } else {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-    });
+                  ],
+                )
+              ],
+            ),
+          );
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
   }
 }

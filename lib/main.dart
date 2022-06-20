@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hidrotec/screen/login.dart';
-
-import 'package:hidrotec/screen/logo.dart';
+import 'package:hidrotec/widget/logo.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-
 import 'authbloc/authbloc.dart';
 import 'models/providerrtdb.dart';
 
@@ -49,7 +47,7 @@ class _MyAppState extends State<MyApp> {
       home: AnimatedSplashScreen(
         backgroundColor: Colors.black,
         duration: 3000,
-        splash: LogoHidrotec(
+        splash: LogoHidrotec1(
           fontSize1: 38,
           fontSize2: 12,
         ),

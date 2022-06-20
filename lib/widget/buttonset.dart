@@ -1,10 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/providerrtdb.dart';
 
+// ignore: must_be_immutable
 class ButtonSET extends StatefulWidget {
-  const ButtonSET({Key? key}) : super(key: key);
+   const ButtonSET({Key? key,}) : super(key: key);
+ 
 
   @override
   State<ButtonSET> createState() => _ButtonSETState();
@@ -14,9 +15,9 @@ class _ButtonSETState extends State<ButtonSET> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
-      width: MediaQuery.of(context).size.width / 2,
-      height: 65,
+      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      width: 200,
+      height: 60,
       decoration: BoxDecoration(
           color: Colors.indigo.withOpacity(0.7),
           borderRadius: BorderRadius.circular(8),
@@ -31,29 +32,23 @@ class _ButtonSETState extends State<ButtonSET> {
               child: const Icon(
                 Icons.arrow_downward_rounded,
               ),
-              style:  ElevatedButton.styleFrom(
+              style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
                 padding: const EdgeInsets.all(10),
-                
               ),
             ),
-          
             const Text('SET'),
-
-             ElevatedButton(
-              onPressed: () => Provider.of<ProviderRTDB>(context, listen: false)
-                  .upSetTemp(),
+            ElevatedButton(
+              onPressed: () =>
+                  Provider.of<ProviderRTDB>(context, listen: false).upSetTemp(),
               child: const Icon(
                 Icons.arrow_upward_rounded,
               ),
-              style:  ElevatedButton.styleFrom(
+              style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
                 padding: const EdgeInsets.all(10),
-                
               ),
             ),
-          
-         
           ],
         ),
       ),

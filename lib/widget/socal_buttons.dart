@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 
+
+// ignore: must_be_immutable
 class SocalButtns extends StatelessWidget {
    SocalButtns({
     Key? key, required this.onPressed

@@ -2,13 +2,16 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:segment_display/segment_display.dart';
-
 import '../models/providerrtdb.dart';
 
+
+
+
+// ignore: must_be_immutable
 class SetTempContainer extends StatefulWidget {
-  const SetTempContainer({Key? key}) : super(key: key);
+   SetTempContainer({Key? key, required this.width}) : super(key: key);
+  double width;
 
   @override
   State<SetTempContainer> createState() => _SetTempContainerState();
@@ -19,8 +22,10 @@ class _SetTempContainerState extends State<SetTempContainer> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Container(
-      width: MediaQuery.of(context).size.width / 3.2,
+      
+      width: widget.width,
       height: 300.0,
       decoration: BoxDecoration(
         color: Colors.indigo.withOpacity(0.7),

@@ -10,8 +10,9 @@ import '../authbloc/authbloc.dart';
 import '../widget/information.dart';
 import '../widget/socal_buttons.dart';
 
-import 'home.dart';
-import 'logo.dart';
+
+import 'home/home.dart';
+import '../widget/logo.dart';
 
 class LoginPage1 extends StatefulWidget {
   const LoginPage1({Key? key}) : super(key: key);
@@ -67,7 +68,7 @@ class _LoginPageState extends State<LoginPage1>
                   left: 0,
                   child: AnimatedSwitcher(
                       duration: defaultDuration,
-                      child: LogoHidrotec(
+                      child: LogoHidrotec1(
                         fontSize1: _fontsized.value.toDouble(),
                         fontSize2: 12,
                       )),
