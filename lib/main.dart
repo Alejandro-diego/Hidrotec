@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:hidrotec/screen/login.dart';
+import 'package:hidrotec/screen/home/home.dart';
+import 'package:hidrotec/screen/log/login_page.dart';
+
 import 'package:hidrotec/widget/logo.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -51,7 +55,7 @@ class _MyAppState extends State<MyApp> {
           fontSize1: 38,
           fontSize2: 12,
         ),
-        nextScreen: const LoginPage1(),
+        nextScreen: const MainPage(),
         splashTransition: SplashTransition.fadeTransition,
       ),
     );
@@ -59,9 +63,36 @@ class _MyAppState extends State<MyApp> {
 
   void initialization() async {
     FlutterNativeSplash.remove();
-  }
-
-  
+  }  
 }
+
+class MainPage extends StatelessWidget {
+  const MainPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CupertinoActivityIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return const Center(
+              child: Text('Algo Deu errado'),
+            );
+          } else if (snapshot.hasData) {
+            return const HomePage();
+          }
+          return const LoginPage();
+        },
+      ),
+    );
+  }
+}
+
+
 
 

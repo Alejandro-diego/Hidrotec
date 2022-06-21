@@ -51,6 +51,7 @@ dependencies:
   animated_splash_screen: ^1.2.0
   brasil_fields: ^1.4.4
   http: ^0.13.4
+  google_fonts: ^3.0.1
 
 dev_dependencies:
   flutter_test:

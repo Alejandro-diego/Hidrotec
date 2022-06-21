@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:hidrotec/widget/buttonset.dart';
 import 'package:hidrotec/widget/datainf.dart';
 import 'package:hidrotec/widget/gauge.dart';
-import 'package:hidrotec/widget/logo_small.dart';
+
 import '../../widget/buttonled.dart';
 import '../../widget/circulo.dart';
+
+import '../../widget/logo_small.dart';
+
 import '../../widget/weather.dart';
 
 class HomePageMovil extends StatefulWidget {
@@ -29,17 +32,18 @@ class _HomePageMovilState extends State<HomePageMovil> {
                 Container(
                   height: 310,
                   width: MediaQuery.of(context).size.width,
-                  margin: const EdgeInsets.only(
-                      top: 85, left: 5, right: 5, bottom: 10),
+                  margin: EdgeInsets.only(
+                      top: size.height * .135, left: 5, right: 5, bottom: 10),
                   padding: const EdgeInsets.all(5.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
                     color: Colors.grey[800]!.withOpacity(0.6),
                   ),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       SetTempContainer(
-                        width: size.width * .24,
+                        width: size.width * .35,
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -69,7 +73,7 @@ class _HomePageMovilState extends State<HomePageMovil> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                 PickColor(
+                PickColor(
                   height: 210,
                   widht: 210,
                 ),

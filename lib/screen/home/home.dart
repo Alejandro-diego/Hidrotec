@@ -1,11 +1,7 @@
-import 'dart:async';
 import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hidrotec/screen/login.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../authbloc/authbloc.dart';
 import '../../responsive.dart';
 import 'home_movil.dart';
 import 'home_tablet.dart';
@@ -18,36 +14,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late StreamSubscription<User?> loginStateSubcription;
-
-  String disp = '463';
-  @override
-  void initState() {
-    var authBloc = Provider.of<AuthBloc>(context, listen: false);
-    loginStateSubcription = authBloc.currentUser.listen(
-      (fbuser) {
-        if (fbuser == null) {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => const LoginPage1(),
-            ),
-          );
-        }
-      },
-    );
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    loginStateSubcription.cancel();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final authBloc = Provider.of<AuthBloc>(context);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
@@ -63,11 +31,12 @@ class _HomePageState extends State<HomePage> {
                 IconButton(
                     icon: const Icon(Icons.headset_mic),
                     onPressed: () {
+                      // ignore: deprecated_member_use
                       launch('https://wa.me/message/OJG5RNHXJSJNB1');
                     }),
                 IconButton(
                     onPressed: () {
-                      authBloc.logout();
+                      FirebaseAuth.instance.signOut();
                     },
                     icon: const Icon(Icons.logout)),
               ],
