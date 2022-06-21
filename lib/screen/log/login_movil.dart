@@ -84,7 +84,7 @@ class _MobileLoginScrennState extends State<MobileLoginScrenn> {
                 },
                 style: ElevatedButton.styleFrom(
                   shadowColor: Colors.black,
-                  primary: const Color.fromARGB(255, 19, 18, 18),
+                  primary: Colors.black.withOpacity(.6),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),

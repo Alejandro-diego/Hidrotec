@@ -18,6 +18,7 @@ class FormSigIn extends StatefulWidget {
 }
 
 class _FormSigInState extends State<FormSigIn> {
+  late bool showPassword = false;
   @override
   void initState() {
     _obtenerCredenciales();
@@ -76,11 +77,19 @@ class _FormSigInState extends State<FormSigIn> {
                       color: Colors.grey,
                     ),
                   ),
+                  suffixIcon: IconButton(
+                    icon:  Icon(Icons.remove_red_eye,color: showPassword ? Colors.black.withOpacity(.3) : Colors.grey,),
+                    onPressed: () {
+                      setState(() {
+                        showPassword = !showPassword;
+                      });
+                    },
+                  ),
                   focusedBorder: const UnderlineInputBorder(
                       borderSide:
                           BorderSide(width: 1, color: Colors.amberAccent)),
                 ),
-                obscureText: true,
+                obscureText: !showPassword,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Senha';

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hidrotec/models/providerrtdb.dart';
 import 'package:provider/provider.dart';
-import 'package:restart_app/restart_app.dart';
+//import 'package:restart_app/restart_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Information extends StatefulWidget {
@@ -18,14 +18,12 @@ class Information extends StatefulWidget {
 
 class _InformationState extends State<Information> {
   final _formKey = GlobalKey<FormState>();
-  late String dispositivo = "1003";
-  late String cep = '99400-000';
-  late String cidade = "Espumoso";
 
   DatabaseReference database = FirebaseDatabase.instance.ref();
-  final _numberController = TextEditingController();
+  final _dispController = TextEditingController();
   final _cepController = TextEditingController();
   final _cidadeController = TextEditingController();
+  final _nameController = TextEditingController();
 
   @override
   void initState() {
@@ -37,18 +35,18 @@ class _InformationState extends State<Information> {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.13),
+          horizontal: MediaQuery.of(context).size.width * 0.10),
       child: Column(
         children: [
           const Spacer(),
           Container(
-            // color: Colors.orange,
+            //color: Colors.orange,
             // padding: const EdgeInsets.all(10),
-            height: 200,
+            height: 170,
             width: 300,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color: Colors.black.withOpacity(.2),
+              color: Colors.black.withOpacity(.6),
               border: Border.all(),
             ),
             child: Column(
@@ -66,7 +64,7 @@ class _InformationState extends State<Information> {
                   ),
                 ),
                 Container(
-                  height: 120.0,
+                  height: 100.0,
                   padding: const EdgeInsets.all(5),
                   width: double.infinity,
                   child: Consumer<ProviderRTDB>(
@@ -74,13 +72,11 @@ class _InformationState extends State<Information> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Dispositivo : $dispositivo'),
-                          Text('Local do Dispositivo : $cidade'),
-                          Text('CEP : $cep'),
+                          Text('Dispositivo : ${_dispController.text}'),
                           Text(
-                              'Nome : ${model.datosProvider == null ? 'sem nome' : model.datosProvider!.name}'),
-                          Text(
-                              'e-mail : ${model.datosProvider == null ? 'sem email' : model.datosProvider!.email}'),
+                              'Local do Dispositivo : ${_cidadeController.text}'),
+                          Text('CEP : ${_cepController.text}'),
+                          Text('Nome : ${_nameController.text}'),
                         ],
                       );
                     },
@@ -91,8 +87,8 @@ class _InformationState extends State<Information> {
                     child: InkWell(
                       onLongPress: () => _dispN(context),
                       child: const Text(
-                        'Mantenha apertado para mudar as informação',
-                        style: TextStyle(fontSize: 13.0, color: Colors.amber),
+                        'Apertar para mudar as informação',
+                        style: TextStyle(fontSize: 15.0, color: Colors.amber),
                       ),
                     ),
                   ),
@@ -111,13 +107,13 @@ class _InformationState extends State<Information> {
   Future<void> _obtener() async {
     SharedPreferences preference = await SharedPreferences.getInstance();
     setState(() {
-      dispositivo = preference.getString('disp') ?? 'Sem Dispositivo';
-      cep = preference.getString('cep') ?? 'sem Data';
-      cidade = preference.getString('cidade') ?? 'sem Data';
-
-      _cepController.text = cep;
-      _cidadeController.text = cidade;
-      _numberController.text = dispositivo;
+      _cepController.text = preference.getString('cep') ?? '';
+      _cidadeController.text = preference.getString('cidade') ?? '';
+      _dispController.text = preference.getString('disp') ?? '';
+      _nameController.text = preference.getString('name') ?? '';
+      if (_dispController.text != "") {
+        context.read<ProviderRTDB>().changueDisp(_dispController.text);
+      }
     });
   }
 
@@ -126,14 +122,16 @@ class _InformationState extends State<Information> {
 
     setState(
       () {
-        preference.setString('disp', _numberController.text);
+        preference.setString('disp', _dispController.text);
         preference.setString('cep', _cepController.text);
         preference.setString('cidade', _cidadeController.text);
-        database.child('disp' + _numberController.text).update(
+        preference.setString('name', _nameController.text);
+        database.child('disp${_dispController.text}').update(
           {
-            'disp': _numberController.text,
+            'disp': _dispController.text,
             'cidade': _cidadeController.text,
             'cep': _cepController.text,
+            'name': _nameController.text,
           },
         );
       },
@@ -144,96 +142,117 @@ class _InformationState extends State<Information> {
     return showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.black.withOpacity(.5),
-          actions: <Widget>[
-            ElevatedButton.icon(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  Navigator.of(context).pop();
+        return SingleChildScrollView(
+          child: AlertDialog(
+            backgroundColor: Colors.black.withOpacity(.5),
+            actions: <Widget>[
+              ElevatedButton.icon(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.of(context).pop();
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      backgroundColor: Colors.black,
-                      content: Text(
-                        'Salvando datos',
-                        style: TextStyle(color: Colors.white70),
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        backgroundColor: Colors.black,
+                        content: Text(
+                          'Salvando datos',
+                          style: TextStyle(color: Colors.white70),
+                        ),
                       ),
-                    ),
-                  );
-                  _colocar();
+                    );
+                    _colocar();
+                    context
+                        .read<ProviderRTDB>()
+                        .changueDisp(_dispController.text);
 
-                  Timer.periodic(const Duration(seconds: 2), (timer) {
-                     Restart.restartApp();
-                  });
-                }
-              },
-              icon: const Icon(Icons.save),
-              label: const Text('Guardar'),
-            ),
-          ],
-          title: const Text('Aleterar Informação'),
-          content: SizedBox(
-            height: 220,
-            width: 300,
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 0, horizontal: 10),
-                        border: const OutlineInputBorder(),
-                        labelText: 'Dispositivo',
-                        hintText: dispositivo),
-                    keyboardType: TextInputType.number,
-                    controller: _numberController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Ingrese Dispositivo';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 0, horizontal: 10),
-                        border: const OutlineInputBorder(),
+                    Timer.periodic(const Duration(seconds: 2), (timer) {
+                      // Restart.restartApp();
+                    });
+                  }
+                },
+                icon: const Icon(Icons.save),
+                label: const Text('Guardar'),
+              ),
+            ],
+            title: const Text('Aleterar Informação'),
+            content: SizedBox(
+              height: 250,
+              width: 200,
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                        border: OutlineInputBorder(),
+                        labelText: 'Nome',
+                      ),
+                      keyboardType: TextInputType.name,
+                      controller: _nameController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Ingrese Nome';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                        border: OutlineInputBorder(),
                         labelText: 'Local do Dispositivo',
-                        hintText: cidade),
-                    keyboardType: TextInputType.name,
-                    controller: _cidadeController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Ingrese Local do Dispositivo';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      CepInputFormatter(),
-                    ],
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 0, horizontal: 10),
-                        border: const OutlineInputBorder(),
+                      ),
+                      keyboardType: TextInputType.name,
+                      controller: _cidadeController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Ingrese Local do Dispositivo';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        CepInputFormatter(),
+                      ],
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                        border: OutlineInputBorder(),
                         labelText: 'CEP',
-                        hintText: cep),
-                    controller: _cepController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'por favor ingresar Preço';
-                      }
-                      return null;
-                    },
-                  ),
-                ],
+                      ),
+                      controller: _cepController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'por favor ingresar Preço';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                        border: OutlineInputBorder(),
+                        labelText: 'Dispositivo',
+                      ),
+                      keyboardType: TextInputType.number,
+                      controller: _dispController,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Ingrese Dispositivo';
+                        }
+                        return null;
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

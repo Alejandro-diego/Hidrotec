@@ -9,7 +9,7 @@ import 'package:hidrotec/widget/logo.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'authbloc/authbloc.dart';
+
 import 'models/providerrtdb.dart';
 
 
@@ -19,9 +19,7 @@ void main() async {
 
   await Firebase.initializeApp();
   runApp(MultiProvider(providers: [
-    Provider(
-      create: (context) => AuthBloc(),
-    ),
+    
     ChangeNotifierProvider(
       create: (_) => ProviderRTDB(),
     ),

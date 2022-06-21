@@ -29,7 +29,7 @@ class _HomePageTabletState extends State<HomePageTablet> {
                   height: 312,
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.only(
-                      top: 100, left: 5, right: 5, bottom: 10),
+                      top: 80, left: 5, right: 5, bottom: 10),
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
