@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
-
 import '../models/providerrtdb.dart';
 
 class Gauge extends StatefulWidget {
@@ -29,7 +28,7 @@ class _GaugeState extends State<Gauge> {
             child: SfRadialGauge(
               title: const GaugeTitle(
                 text: 'Control Temperatura',
-                textStyle: TextStyle(fontSize: 10),
+                textStyle: TextStyle(fontSize: 12),
               ),
               axes: <RadialAxis>[
                 RadialAxis(
@@ -60,7 +59,7 @@ class _GaugeState extends State<Gauge> {
                     ),
                     MarkerPointer(
                       markerOffset: -11,
-                      color: Colors.orangeAccent,
+                      color: Colors.orange.withOpacity(.6),
                       markerHeight: 15,
                       markerWidth: 15,
                       enableDragging: true,
