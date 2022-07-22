@@ -38,13 +38,13 @@ class _LedButtonState extends State<LedButton> {
                   height: 4,
                 ),
                 CupertinoSwitch(
-                    value: model.datosProvider!.led,
+                    value: model.datosProvider!.leds,
                     onChanged: (bool v1) {
                       setState(() {
                         _database
                             .child('disp' + model.datosProvider!.disp)
                             .update({
-                          'led': v1,
+                          'leds': v1,
                           'ledpisca': false,
                         });
                       });
@@ -66,7 +66,7 @@ class _LedButtonState extends State<LedButton> {
                             .update(
                           {
                             'ledpisca': v2,
-                            'led': false,
+                            'leds': false,
                           },
                         );
                       },

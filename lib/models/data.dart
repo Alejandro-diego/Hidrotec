@@ -1,7 +1,7 @@
 class DatosAD {
   int temp;
   int tempSetting;
-  bool led;
+  bool leds;
   bool ledpisca;
   bool bomba;
   bool bomba1;
@@ -17,7 +17,7 @@ class DatosAD {
       required this.auto,
       required this.tempSetting,
       required this.bomba,
-      required this.led,
+      required this.leds,
       required this.bomba1,
       required this.disp,
       required this.ledpisca});
@@ -29,7 +29,7 @@ class DatosAD {
         tempSetting: data['setTemp'] ?? 23,
         bomba: data['bomba'] ?? false,
         bomba1: data['bomba1'] ?? false,
-        led: data['led'] ?? false,
+        leds: data['led'] ?? false,
         ledpisca: data['ledpisca'] ?? false,
         name: data['name'] ?? 'name', 
         email: data['email'] ?? 'email',
