@@ -29,7 +29,7 @@ class DatosAD {
         tempSetting: data['setTemp'] ?? 23,
         bomba: data['bomba'] ?? false,
         bomba1: data['bomba1'] ?? false,
-        leds: data['led'] ?? false,
+        leds: data['leds'] ?? false,
         ledpisca: data['ledpisca'] ?? false,
         name: data['name'] ?? 'name', 
         email: data['email'] ?? 'email',
