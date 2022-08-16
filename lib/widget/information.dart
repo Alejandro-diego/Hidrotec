@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hidrotec/models/providerrtdb.dart';
 import 'package:provider/provider.dart';
-//import 'package:restart_app/restart_app.dart';
+import 'package:restart_app/restart_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Information extends StatefulWidget {
@@ -106,15 +106,17 @@ class _InformationState extends State<Information> {
 
   Future<void> _obtener() async {
     SharedPreferences preference = await SharedPreferences.getInstance();
-    setState(() {
-      _cepController.text = preference.getString('cep') ?? '';
-      _cidadeController.text = preference.getString('cidade') ?? '';
-      _dispController.text = preference.getString('disp') ?? '';
-      _nameController.text = preference.getString('name') ?? '';
-      if (_dispController.text != "") {
-        context.read<ProviderRTDB>().changueDisp(_dispController.text);
-      }
-    });
+    setState(
+      () {
+        _cepController.text = preference.getString('cep') ?? '';
+        _cidadeController.text = preference.getString('cidade') ?? '';
+        _dispController.text = preference.getString('disp') ?? '';
+        _nameController.text = preference.getString('name') ?? '';
+    //    if (_dispController.text != "") {
+      //    context.read<ProviderRTDB>().changueDisp(_dispController.text);
+        //}
+      },
+    );
   }
 
   Future<void> _colocar() async {
@@ -161,12 +163,12 @@ class _InformationState extends State<Information> {
                       ),
                     );
                     _colocar();
-                    context
-                        .read<ProviderRTDB>()
-                        .changueDisp(_dispController.text);
+                 //   context
+                   //     .read<ProviderRTDB>()
+                     //   .changueDisp(_dispController.text);
 
                     Timer.periodic(const Duration(seconds: 2), (timer) {
-                      // Restart.restartApp();
+                      Restart.restartApp();
                     });
                   }
                 },

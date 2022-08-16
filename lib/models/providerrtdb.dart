@@ -15,11 +15,11 @@ class ProviderRTDB extends ChangeNotifier {
 
   DatosAD? get datosProvider => _datosProvider;
 
-changueDisp(String value) {
-    _dispositivo = value;
-    notifyListeners();
-    _escuchar();
-  }
+//changueDisp(String value) {
+  //  _dispositivo = value;
+    //notifyListeners();
+  //  _escuchar();
+  //}
 
 
 

@@ -49,6 +49,7 @@ dependencies:
   brasil_fields: ^1.4.4
   http: ^0.13.4
   google_fonts: ^3.0.1
+  restart_app: ^1.1.0+1
 
 dev_dependencies:
   flutter_test:
